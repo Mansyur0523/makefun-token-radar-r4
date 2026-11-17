@@ -1,0 +1,71 @@
+/* Token Radar r4 — paper, ink navy, amber verdicts. No network, no framework. */
+:root{
+  --paper:#f7f4ec; --card:#fffdf6; --ink:#16233c; --muted:#5b6577; --line:#ddd5c2;
+  --navy:#16233c; --teal:#0f766e; --amber:#b97f0e; --amber-bg:#fdf3d7;
+  --green:#166534; --green-bg:#e3f2e4; --red:#991b1b; --red-bg:#fbe4e4; --grey-bg:#eceadf;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{background:var(--navy);color:#f7f4ec;padding:34px 0 26px}
+.kicker{margin:0 0 8px;color:#e8c15a;font-size:12px;letter-spacing:.14em;font-weight:700}
+.top h1{margin:0 0 10px;font-size:34px;line-height:1.15;letter-spacing:-.01em}
+.lede{margin:0;max-width:900px;font-size:17px;color:#dbe2ef}
+.oos{margin:14px 0 0;max-width:900px;padding:10px 14px;background:#1e2f52;border:1px solid #35507e;
+  border-radius:8px;color:#ffe9a8;font-size:14px}
+.oos b{color:#fff}
+.judge{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--teal);
+  border-radius:10px;padding:18px 22px;margin:22px 0}
+.judge h2{margin:0 0 8px;font-size:19px}
+.judge ol{margin:0;padding-left:22px}
+.judge li{margin:7px 0;font-size:15px}
+.judge code{background:#eef0f4;padding:1px 5px;border-radius:4px;font-size:13px}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;background:var(--card);
+  border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 18px}
+.controls label{font-size:13px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.controls input,.controls select{font:inherit;color:var(--ink);background:#fff;
+  border:1px solid #c9c2ab;border-radius:6px;padding:7px 9px;min-width:150px}
+.controls input{width:230px}
+.count{margin:0 0 0 auto;font-size:14px;color:var(--muted);align-self:center}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden}
+thead th{background:var(--navy);color:#f7f4ec;text-align:left;font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;padding:10px 12px;cursor:pointer;white-space:nowrap}
+tbody td{padding:9px 12px;border-top:1px solid var(--line);font-size:14px;vertical-align:top}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#f3efe0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td .sub{display:block;font-size:12px;color:var(--muted)}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700}
+.badge.FARM{background:var(--green-bg);color:var(--green)}
+.badge.THIN{background:var(--amber-bg);color:var(--amber)}
+.badge.WATCH{background:var(--grey-bg);color:var(--muted)}
+.badge.live{background:#e0e7ff;color:#3730a3}
+.hint{font-size:13px;color:var(--muted)}
+/* Detail view: a fixed overlay, so it is visible the moment it opens (and in a
+   screenshot) without depending on the page's scroll position. */
+.detail{position:fixed;inset:0;z-index:50;background:rgba(22,35,60,.55);
+  padding:24px;display:flex;align-items:flex-start;justify-content:center;overflow:auto}
+.detail[hidden]{display:none}
+.detail .card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--amber);
+  border-radius:10px;padding:20px 24px;max-width:860px;width:100%;margin:auto 0}
+.detail h2{margin:0 0 4px;font-size:24px}
+.detail .meta{color:var(--muted);font-size:14px;margin:0 0 12px}
+.detail .band{font-size:17px;background:var(--amber-bg);border-radius:8px;padding:10px 14px;margin:10px 0}
+.detail .band b{font-size:20px}
+.detail table{margin:10px 0}
+.detail td:first-child{font-weight:600;width:200px}
+.detail ol{padding-left:22px}
+.detail li{margin:9px 0;font-size:15px}
+.detail .close{float:right}
+button{font:inherit;cursor:pointer;background:var(--navy);color:#fff;border:0;border-radius:6px;padding:7px 14px}
+.live{margin:26px 0}
+.live h2{font-size:21px;margin:0 0 6px}
+.live p{color:var(--muted);font-size:14px}
+.live tbody tr{cursor:default}
+footer{border-top:1px solid var(--line);padding:16px 0 34px;color:var(--muted);font-size:13px}
+@media (max-width:760px){
+  .top h1{font-size:26px}
+  .controls input{width:100%}
+  tbody td{font-size:13px;padding:7px 8px}
+}

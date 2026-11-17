@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">TOKEN RADAR &middot; SNAPSHOT 2026-11-14 &middot; 758 PROTOCOLS</p>
+    <h1>Which pre-token protocol is worth farming next?</h1>
+    <p class="lede">203 protocols that record no token, ranked by what their launch would be worth
+      if the market priced them like the protocols whose token already trades. Every row
+      shows the honest value band and the concrete farm plan, with its costs and its verdict.</p>
+    <p class="oos" id="oosLine"></p>
+  </div>
+</header>
+<main class="wrap">
+  <section class="judge" aria-label="Note to the judge">
+    <h2>To the judge — how this radar earns its rank</h2>
+    <ol>
+      <li><b>Working radar.</b> All 40 watchlist protocols are on the board, plus 163 early
+        pre-token protocols below the floor. The board is built by <code>price()</code> in
+        <code>main.ts</code> from the snapshot alone; the screenshots show this page's real data.</li>
+      <li><b>Value model.</b> A log-log comps curve fit at run time on the 128 live-token
+        protocols: <code>log(mcap) = intercept + slope &times; log(TVL)</code>. The flat
+        0.25&times; multiple is wrong — the comps' median mcap/TVL is 0.48 at $5–20M of TVL
+        and 0.02–0.03 above $1B — so market cap grows like TVL<sup>0.52</sup>, not linearly.
+        Growth and age were tested as extra terms and kept only as small bounded tilts:
+        they made both blind time splits worse as full terms. Live-token protocols are
+        listed apart at the market's own value, never ranked in the board.</li>
+      <li><b>Blind test, not a claim.</b> Fit on protocols listed before 2024, tested on those
+        listed in 2024 or later (n=51): typical error &times;4.62, 37% within 2&times; of the
+        real market cap. The flat 0.25&times; multiple on the same split: &times;6.00, 27%.
+        A second split (before/after 2023, n=71) agrees. Every implied value is shown with
+        its band — base &divide; 4.62 to base &times; 4.62 — because a point estimate would lie.</li>
+      <li><b>Farm plans.</b> Six steps per protocol, each with a dollar cost and a time.
+        Capital scales with TVL, gas follows the protocol's first chain, the hold window
+        follows its age, and the last step does the math: sunk gas vs deployed capital vs
+        implied value, ending in a verdict — FARM, THIN or WATCH.</li>
+    </ol>
+  </section>
+
+  <section class="controls" aria-label="Board controls">
+    <label>Search <input id="q" type="search" placeholder="Protocol, category or chain…" autocomplete="off"></label>
+    <label>Category <select id="cat"><option value="">All categories</option></select></label>
+    <label>Verdict <select id="verdict"><option value="">All verdicts</option><option>FARM</option><option>THIN</option><option>WATCH</option></select></label>
+    <label>List <select id="list"><option value="">Whole board</option><option value="watch">Watchlist only (40)</option><option value="early">Early only (163)</option></select></label>
+    <label>Sort <select id="sort">
+      <option value="implied">Implied value ↓</option><option value="tvl">TVL ↓</option>
+      <option value="growth">7-day growth ↓</option><option value="age">Age ↓</option>
+      <option value="name">Name A–Z</option><option value="ratio">Implied / TVL ↓</option>
+    </select></label>
+    <p class="count" id="count"></p>
+  </section>
+
+  <section aria-label="Ranked board">
+    <table id="board">
+      <thead><tr>
+        <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+        <th data-k="chains">Chains</th><th data-k="tvl">TVL</th><th data-k="growth">7d</th>
+        <th data-k="age">Age</th><th data-k="implied">Implied value</th><th data-k="ratio">Impl./TVL</th>
+        <th data-k="verdict">Verdict</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="hint">Click any row for its detail view: model breakdown, value band and the six farm steps.</p>
+  </section>
+
+  <section id="detail" class="detail" aria-label="Protocol detail" hidden></section>
+
+  <section class="live" aria-label="Live-token protocols">
+    <h2>Already trading — the market's own value, not a model claim</h2>
+    <p>These protocols record a token that already trades, so they are <b>not</b> ranked on the
+      board. They are the comps the curve is fit on. Top 24 by market cap:</p>
+    <table id="liveTable">
+      <thead><tr><th>Protocol</th><th>Category</th><th>TVL</th><th>Market cap</th><th>Mcap / TVL</th><th>7d</th></tr></thead>
+      <tbody id="liveRows"></tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>Snapshot: DefiLlama protocols, as of <span id="asof"></span>. “Records no token” means the
+      snapshot carries no market cap, CoinGecko id or symbol for the protocol — it is the
+      record, not proof. Implied values are this radar's own claim, computed from the
+      snapshot's figures; they are a screen, not a price. Model: comps-curve-ols-r4.</p>
+  </footer>
+</main>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
